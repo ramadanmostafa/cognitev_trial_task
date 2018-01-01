@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 
 
 class IsAuthenticated(BasePermission):
+    """
+    custom permission to make sure the request has a valid token in the header
+    """
 
     message = 'Invalid auth token.'
 

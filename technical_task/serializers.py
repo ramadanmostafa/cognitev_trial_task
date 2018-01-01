@@ -8,9 +8,17 @@ from .models import Profile, UserStatus
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
+    """
+    serializer for create user view
+    """
     password = serializers.CharField(min_length=8, max_length=256, required=True)
 
     def validate(self, data):
+        """
+        additional validation for the phone number, should be at least 11 digits without the + sign
+        :param data:
+        :return:
+        """
         if "phone_number" in data:
             user_query = User.objects.filter(username=data["phone_number"])
             if user_query.exists():
@@ -42,8 +50,16 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
+    """
+    serializer for user login view
+    """
 
     def validate(self, data):
+        """
+        make sure the phone number is already registered
+        :param data:
+        :return:
+        """
         user = authenticate(username=data["phone_number"], password=data["password"])
         if user is None:
             raise ValidationError(
@@ -61,7 +77,9 @@ class UserLoginSerializer(serializers.ModelSerializer):
 
 
 class UserStatusSerializer(serializers.ModelSerializer):
-
+    """
+    serializer for create user status view
+    """
     class Meta:
         model = UserStatus
         fields = (

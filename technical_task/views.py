@@ -17,6 +17,9 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
 class UserCreateAPIView(CreateAPIView):
+    """
+    create a new user view
+    """
     serializer_class = UserCreateSerializer
     permission_classes = (AllowAny, )
 
@@ -26,6 +29,9 @@ class UserCreateAPIView(CreateAPIView):
 
 
 class UserLoginAPIView(APIView):
+    """
+    login user view, if the user is already register, it will returns a unique token to be used further
+    """
     serializer_class = UserLoginSerializer
     permission_classes = (AllowAny, )
 
@@ -52,6 +58,10 @@ class UserLoginAPIView(APIView):
 
 
 class UserStatusCreateAPIView(CreateAPIView):
+    """
+    for authenticated users only, create status linked to this user,
+    require HTTP_AUTHORIZATION: token {access_token}
+    """
 
     serializer_class = UserStatusSerializer
     permission_classes = (IsAuthenticated, )

@@ -5,13 +5,27 @@ from . import COUNTRY_CODES, GENDERS
 
 
 def avatar_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/avatar/<filename>
+    """
+    get the file path, will be uploaded to MEDIA_ROOT/avatar/<filename>
+    :param instance:
+    :param filename:
+    :return:
+    """
     return 'avatar/%s' % (filename, )
 
 
 class Profile(models.Model):
+    """
+    user details model, connected to the auth user django model
+    """
 
     def save(self, *args, **kwargs):
+        """
+        if the profile is not created yet, create a new auth_user instance
+        :param args:
+        :param kwargs:
+        :return:
+        """
         if not self.id:
             self.user = User.objects.get_or_create(username=self.phone_number)[0]
             self.user.set_password(self.password)
@@ -31,5 +45,8 @@ class Profile(models.Model):
 
 
 class UserStatus(models.Model):
+    """
+    user status model, connected to the django auth_user model
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.TextField()

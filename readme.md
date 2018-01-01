@@ -48,5 +48,4 @@ there are some tests for views, serializers, permissions and models. i didn't us
 
 ## Authors
 
-* **Ramadan K.Mostafa** - [RamadanMostafa](https://github.com/ramadanmostafa/)
-
+* **Ramadan K.Mostafa**
